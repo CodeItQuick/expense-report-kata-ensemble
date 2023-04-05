@@ -38,6 +38,10 @@ public class ExpenseReportTest {
     private class TestableExpenseReport extends ExpenseReport {
         private final List<String> message = new ArrayList<>();
 
+        private TestableExpenseReport() {
+            super(new RealDateProvider());
+        }
+
         @Override
         protected void print(String message) {
             this.message.add(message);

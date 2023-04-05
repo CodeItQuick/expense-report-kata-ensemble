@@ -5,13 +5,14 @@ import java.util.List;
 
 public class ExpenseReport {
 
-    private final DateProvider dateProvider = new RealDateProvider();
+    private final DateProvider dateProvider;
 
-    ExpenseReport() {
+    ExpenseReport(RealDateProvider dateProvider) {
+        this.dateProvider = dateProvider;
     }
 
     public static ExpenseReport create() {
-        return new ExpenseReport();
+        return new ExpenseReport(new RealDateProvider());
     }
 
     public void printReport(List<Expense> expenses) {
