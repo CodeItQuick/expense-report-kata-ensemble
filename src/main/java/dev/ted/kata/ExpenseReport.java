@@ -49,7 +49,7 @@ public class ExpenseReport {
         System.out.println(message);
     }
 
-    public static class RealDateProvider {
+    public static class RealDateProvider implements DateProvider {
         public RealDateProvider() {
         }
 
