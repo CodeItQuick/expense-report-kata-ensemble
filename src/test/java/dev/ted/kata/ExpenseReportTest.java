@@ -15,7 +15,7 @@ public class ExpenseReportTest {
 
     @Test
     public void emptyExpenseReportDoesNotThrowException() {
-        ExpenseReport expenseReport = new ExpenseReport();
+        ExpenseReport expenseReport = ExpenseReport.create();
 
         assertThatCode(() -> expenseReport.printReport(Collections.emptyList()))
                 .doesNotThrowAnyException();
