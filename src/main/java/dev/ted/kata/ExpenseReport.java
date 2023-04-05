@@ -4,7 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ExpenseReport {
+
     private final RealDateProvider dateProvider = new RealDateProvider();
+
+    ExpenseReport() {
+    }
+
+    public static ExpenseReport create() {
+        return new ExpenseReport();
+    }
 
     public void printReport(List<Expense> expenses) {
         int total = 0;
