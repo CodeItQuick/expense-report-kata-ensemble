@@ -29,7 +29,7 @@ public class ExpenseReportTest {
 
         assertThat(expenseReport.report())
                 .containsExactly(
-                        "Expenses 2023-04-06",
+                        "Expenses 2023-04-05",
                         "Meal expenses: 0",
                         "Total expenses: 0"
                         );
