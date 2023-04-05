@@ -28,7 +28,7 @@ public class ExpenseReportTest {
         expenseReport.printReport(Collections.emptyList());
 
         assertThat(expenseReport.report())
-                .contains(
+                .containsExactly(
                         "Expenses 2023-04-05",
                         "Meal expenses: 0",
                         "Total expenses: 0"
