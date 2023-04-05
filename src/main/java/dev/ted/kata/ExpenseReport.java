@@ -4,15 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ExpenseReport {
-    protected void print(String message) {
-        System.out.println(message);
-    }
-
     public void printReport(List<Expense> expenses) {
         int total = 0;
         int mealExpenses = 0;
 
-        print("Expenses " + LocalDate.now());
+        print("Expenses " + currentDate());
 
         for (Expense expense : expenses) {
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
@@ -37,6 +33,14 @@ public class ExpenseReport {
 
         print("Meal expenses: " + mealExpenses);
         print("Total expenses: " + total);
+    }
+
+    private LocalDate currentDate() {
+        return LocalDate.now();
+    }
+
+    protected void print(String message) {
+        System.out.println(message);
     }
 
 }
