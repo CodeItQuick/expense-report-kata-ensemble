@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ExpenseReport {
+    private void print(String message) {
+        System.out.println(message);
+    }
+
     public void printReport(List<Expense> expenses) {
         int total = 0;
         int mealExpenses = 0;
@@ -35,7 +39,4 @@ public class ExpenseReport {
         print("Total expenses: " + total);
     }
 
-    private static void print(String message) {
-        System.out.println(message);
-    }
 }
