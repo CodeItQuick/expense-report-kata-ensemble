@@ -37,10 +37,6 @@ public class ExpenseReport {
         print("Total expenses: " + total);
     }
 
-    private LocalDate currentDate() {
-        return dateProvider.currentDate();
-    }
-
     protected void print(String message) {
         System.out.println(message);
     }
