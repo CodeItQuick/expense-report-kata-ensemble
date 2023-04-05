@@ -1,4 +1,5 @@
 Ensemble Participants - April 5, 2023
 -------------------------------------
-Tom
-Evan
+1. Tom
+2. Evan
+3. Ted
