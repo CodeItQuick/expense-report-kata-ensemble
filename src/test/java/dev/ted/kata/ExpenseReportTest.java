@@ -1,6 +1,7 @@
 package dev.ted.kata;
 
 import com.github.larseckart.tcr.TestCommitRevertExtension;
+import com.github.larseckart.tcr.TestCommitRevertMainExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -8,7 +9,7 @@ import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.*;
 
-@ExtendWith(TestCommitRevertExtension.class)
+@ExtendWith(TestCommitRevertMainExtension.class)
 public class ExpenseReportTest {
 
     @Test
@@ -18,9 +19,10 @@ public class ExpenseReportTest {
         assertThatCode(() -> expenseReport.printReport(Collections.emptyList()))
                 .doesNotThrowAnyException();
     }
+
     @Test
     public void emptyExpenseReportShowsEmptyReceipt() {
-        ExpenseReport expenseReport = new TestableExpenseReport();
+        TestableExpenseReport expenseReport = new TestableExpenseReport();
 
         expenseReport.printReport(Collections.emptyList());
 
@@ -29,9 +31,16 @@ public class ExpenseReportTest {
     }
 
     private class TestableExpenseReport extends ExpenseReport {
+        private String message;
+
         @Override
         protected void print(String message) {
+            this.message = message;
             super.print(message);
+        }
+
+        public String report() {
+            return "";
         }
     }
 }
