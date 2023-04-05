@@ -1,7 +1,6 @@
 package dev.ted.kata;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class ExpenseReport {
@@ -9,7 +8,7 @@ public class ExpenseReport {
         int total = 0;
         int mealExpenses = 0;
 
-        System.out.println("Expenses " + LocalDate.now());
+        print("Expenses " + LocalDate.now());
 
         for (Expense expense : expenses) {
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
@@ -27,12 +26,16 @@ public class ExpenseReport {
                     || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000
                             ? "X" : " ";
 
-            System.out.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+            print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
 
             total += expense.amount;
         }
 
-        System.out.println("Meal expenses: " + mealExpenses);
-        System.out.println("Total expenses: " + total);
+        print("Meal expenses: " + mealExpenses);
+        print("Total expenses: " + total);
+    }
+
+    private static void print(String message) {
+        System.out.println(message);
     }
 }
