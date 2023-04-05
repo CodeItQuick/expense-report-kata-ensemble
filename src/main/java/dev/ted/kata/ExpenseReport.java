@@ -58,4 +58,8 @@ public class ExpenseReport {
             return LocalDate.now();
         }
     }
+
+    public static interface DateProvider {
+        LocalDate currentDate();
+    }
 }
