@@ -36,7 +36,7 @@ public class ExpenseReportTest {
     }
 
     private class TestableExpenseReport extends ExpenseReport {
-        private List<String> message = new ArrayList<>();
+        private final List<String> message = new ArrayList<>();
 
         @Override
         protected void print(String message) {
