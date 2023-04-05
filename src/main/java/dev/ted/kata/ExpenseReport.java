@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ExpenseReport {
-    private void print(String message) {
+    protected void print(String message) {
         System.out.println(message);
     }
 
