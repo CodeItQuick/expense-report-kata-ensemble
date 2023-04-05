@@ -53,7 +53,8 @@ public class ExpenseReport {
         public RealDateProvider() {
         }
 
-        private LocalDate currentDate() {
+        @Override
+        public LocalDate currentDate() {
             return LocalDate.now();
         }
     }
