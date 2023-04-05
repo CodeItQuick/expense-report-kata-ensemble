@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ExpenseReport {
 
-    private final RealDateProvider dateProvider = new RealDateProvider();
+    private final DateProvider dateProvider = new RealDateProvider();
 
     ExpenseReport() {
     }
