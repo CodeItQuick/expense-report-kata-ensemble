@@ -13,10 +13,16 @@ public class ExpenseReportTest {
 
     @Test
     public void emptyExpenseReportDoesNotThrowException() {
-        ExpenseReport expenseReport = new ExpenseReport();
+        ExpenseReport expenseReport = new TestableExpenseReport();
 
         assertThatCode(() -> expenseReport.printReport(Collections.emptyList()))
                 .doesNotThrowAnyException();
     }
 
+    private class TestableExpenseReport extends ExpenseReport {
+        @Override
+        protected void print(String message) {
+            super.print(message);
+        }
+    }
 }
