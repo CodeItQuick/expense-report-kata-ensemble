@@ -28,7 +28,10 @@ public class ExpenseReportTest {
         expenseReport.printReport(Collections.emptyList());
 
         assertThat(expenseReport.report())
-                .contains("Total expenses: 0");
+                .contains(
+                        "Meal expenses: 0",
+                        "Total expenses: 0"
+                        );
     }
 
     private class TestableExpenseReport extends ExpenseReport {
