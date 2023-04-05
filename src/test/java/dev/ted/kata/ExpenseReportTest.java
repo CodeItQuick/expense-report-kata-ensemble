@@ -24,7 +24,8 @@ public class ExpenseReportTest {
 
     @Test
     public void emptyExpenseReportShowsEmptyReceipt() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport();
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"));
 
         expenseReport.printReport(Collections.emptyList());
 
@@ -39,8 +40,8 @@ public class ExpenseReportTest {
     private class TestableExpenseReport extends ExpenseReport {
         private final List<String> message = new ArrayList<>();
 
-        private TestableExpenseReport() {
-            super(() -> LocalDate.parse("2023-04-05"));
+        private TestableExpenseReport(DateProvider dateProvider) {
+            super(dateProvider);
         }
 
         @Override
