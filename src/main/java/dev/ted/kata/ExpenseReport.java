@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ExpenseReport {
-    private final DateProvider dateProvider = new DateProvider();
+    private final RealDateProvider dateProvider = new RealDateProvider();
 
     public void printReport(List<Expense> expenses) {
         int total = 0;
@@ -41,8 +41,8 @@ public class ExpenseReport {
         System.out.println(message);
     }
 
-    public static class DateProvider {
-        public DateProvider() {
+    public static class RealDateProvider {
+        public RealDateProvider() {
         }
 
         private LocalDate currentDate() {
