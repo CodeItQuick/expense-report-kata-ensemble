@@ -4,6 +4,7 @@ import com.github.larseckart.tcr.TestCommitRevertMainExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +40,7 @@ public class ExpenseReportTest {
         private final List<String> message = new ArrayList<>();
 
         private TestableExpenseReport() {
-            super(new RealDateProvider());
+            super(() -> LocalDate.parse("2023-04-05"));
         }
 
         @Override

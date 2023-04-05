@@ -7,7 +7,7 @@ public class ExpenseReport {
 
     private final DateProvider dateProvider;
 
-    ExpenseReport(RealDateProvider dateProvider) {
+    protected ExpenseReport(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
     }
 
