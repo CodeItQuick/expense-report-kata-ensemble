@@ -18,6 +18,15 @@ public class ExpenseReportTest {
         assertThatCode(() -> expenseReport.printReport(Collections.emptyList()))
                 .doesNotThrowAnyException();
     }
+    @Test
+    public void emptyExpenseReportShowsEmptyReceipt() {
+        ExpenseReport expenseReport = new TestableExpenseReport();
+
+        expenseReport.printReport(Collections.emptyList());
+
+        assertThat(expenseReport.report())
+                .isEqualTo("");
+    }
 
     private class TestableExpenseReport extends ExpenseReport {
         @Override
