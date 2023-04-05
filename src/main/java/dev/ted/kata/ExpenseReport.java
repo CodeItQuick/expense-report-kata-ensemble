@@ -59,7 +59,7 @@ public class ExpenseReport {
         }
     }
 
-    public static interface DateProvider {
+    public interface DateProvider {
         LocalDate currentDate();
     }
 }
