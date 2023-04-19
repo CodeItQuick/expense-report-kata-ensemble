@@ -56,6 +56,25 @@ public class ExpenseReportTest {
                         "Total expenses: 10"
                         );
     }
+    @Test
+    public void oneDinnerExpenseReportShowsMealExpense() {
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"));
+
+        Expense expense = new Expense();
+        expense.amount = 10;
+        expense.type = ExpenseType.DINNER;
+
+        expenseReport.printReport(List.of(expense));
+
+        assertThat(expenseReport.report())
+                .containsExactly(
+                        "Expenses 2023-04-05",
+                        "Dinner\t10\t ",
+                        "Meal expenses: 10",
+                        "Total expenses: 10"
+                        );
+    }
 
     private class TestableExpenseReport extends ExpenseReport {
         private final List<String> message = new ArrayList<>();
