@@ -22,9 +22,7 @@ public class ExpenseReport {
         print("Expenses " + dateProvider.currentDate());
 
         for (Expense expense : expenses) {
-            if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
-                mealExpenses += expense.amount;
-            }
+            mealExpenses = calculateMealExpenses(mealExpenses, expense);
 
             String expenseName = switch (expense.type) {
                 case DINNER -> "Dinner";
@@ -32,8 +30,7 @@ public class ExpenseReport {
                 case CAR_RENTAL -> "Car Rental";
             };
 
-            boolean flagMeal = isOverexpensedMeal(expense);
-            if (flagMeal) {
+            if (isOverexpensedMeal(expense)) {
                 print(expenseName + "\t" + expense.amount + "\t" + "X");
             }
             else {
@@ -46,6 +43,13 @@ public class ExpenseReport {
 
         print("Meal expenses: " + mealExpenses);
         print("Total expenses: " + total);
+    }
+
+    private int calculateMealExpenses(int mealExpenses, Expense expense) {
+        if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
+            mealExpenses += expense.amount;
+        }
+        return mealExpenses;
     }
 
     private boolean isOverexpensedMeal(Expense expense) {
