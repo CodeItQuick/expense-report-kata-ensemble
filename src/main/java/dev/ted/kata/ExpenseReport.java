@@ -24,25 +24,28 @@ public class ExpenseReport {
         for (Expense expense : expenses) {
             mealExpenses = calculateMealExpenses(mealExpenses, expense);
 
-            String expenseName = switch (expense.type) {
-                case DINNER -> "Dinner";
-                case BREAKFAST -> "Breakfast";
-                case CAR_RENTAL -> "Car Rental";
-            };
-
-            if (isOverexpensedMeal(expense)) {
-                print(expenseName + "\t" + expense.amount + "\t" + "X");
-            }
-            else {
-                print(expenseName + "\t" + expense.amount + "\t" + " ");
-            }
-
+            printIndividualExpense(expense);
 
             total += expense.amount;
         }
 
         print("Meal expenses: " + mealExpenses);
         print("Total expenses: " + total);
+    }
+
+    private void printIndividualExpense(Expense expense) {
+        String expenseName = switch (expense.type) {
+            case DINNER -> "Dinner";
+            case BREAKFAST -> "Breakfast";
+            case CAR_RENTAL -> "Car Rental";
+        };
+
+        if (isOverexpensedMeal(expense)) {
+            print(expenseName + "\t" + expense.amount + "\t" + "X");
+        }
+        else {
+            print(expenseName + "\t" + expense.amount + "\t" + " ");
+        }
     }
 
     private int calculateMealExpenses(int mealExpenses, Expense expense) {
