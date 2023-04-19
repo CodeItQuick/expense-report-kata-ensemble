@@ -35,13 +35,15 @@ public class ExpenseReport {
             boolean dinnerOverExpensed = expense.type == ExpenseType.DINNER && expense.amount > 5000;
             boolean breakfastOverExpensed = expense.type == ExpenseType.BREAKFAST && expense.amount > 1000;
             String mealOverExpensesMarker;
-            if (dinnerOverExpensed
-                    || breakfastOverExpensed) {
+            if (dinnerOverExpensed || breakfastOverExpensed) {
                 mealOverExpensesMarker = "X";
+                print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
             }
-            else mealOverExpensesMarker = " ";
+            else {
+                mealOverExpensesMarker = " ";
+                print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+            }
 
-            print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
 
             total += expense.amount;
         }
