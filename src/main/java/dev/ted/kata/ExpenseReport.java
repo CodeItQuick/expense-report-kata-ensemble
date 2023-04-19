@@ -32,16 +32,12 @@ public class ExpenseReport {
                 case CAR_RENTAL -> "Car Rental";
             };
 
-            boolean dinnerOverExpensed = expense.type == ExpenseType.DINNER && expense.amount > 5000;
-            boolean breakfastOverExpensed = expense.type == ExpenseType.BREAKFAST && expense.amount > 1000;
-            String mealOverExpensesMarker;
-            if (dinnerOverExpensed || breakfastOverExpensed) {
-                mealOverExpensesMarker = "X";
-                print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+            boolean flagMeal = isOverexpensedMeal(expense);
+            if (flagMeal) {
+                print(expenseName + "\t" + expense.amount + "\t" + "X");
             }
             else {
-                mealOverExpensesMarker = " ";
-                print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+                print(expenseName + "\t" + expense.amount + "\t" + " ");
             }
 
 
@@ -50,6 +46,12 @@ public class ExpenseReport {
 
         print("Meal expenses: " + mealExpenses);
         print("Total expenses: " + total);
+    }
+
+    private boolean isOverexpensedMeal(Expense expense) {
+        boolean dinnerOverExpensed = expense.type == ExpenseType.DINNER && expense.amount > 5000;
+        boolean breakfastOverExpensed = expense.type == ExpenseType.BREAKFAST && expense.amount > 1000;
+        return dinnerOverExpensed || breakfastOverExpensed;
     }
 
     protected void print(String message) {
