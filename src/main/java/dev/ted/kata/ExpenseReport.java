@@ -32,9 +32,11 @@ public class ExpenseReport {
                 case CAR_RENTAL -> "Car Rental";
             };
 
+            boolean dinnerOverExpensed = expense.type == ExpenseType.DINNER && expense.amount > 5000;
+            boolean breakfastOverExpensed = expense.type == ExpenseType.BREAKFAST && expense.amount > 1000;
             String mealOverExpensesMarker =
-                    expense.type == ExpenseType.DINNER && expense.amount > 5000
-                    || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000
+                    dinnerOverExpensed
+                            || breakfastOverExpensed
                             ? "X" : " ";
 
             print(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
