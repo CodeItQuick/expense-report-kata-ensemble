@@ -119,7 +119,7 @@ public class ExpenseReportTest {
                 () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense();
-        expense.amount = 5010;
+        expense.amount = 1010;
         expense.type = ExpenseType.BREAKFAST;
 
         expenseReport.printReport(List.of(expense));
@@ -127,9 +127,36 @@ public class ExpenseReportTest {
         assertThat(expenseReport.report())
                 .containsExactly(
                         "Expenses 2023-04-05",
-                        "Breakfast\t5010\tX",
-                        "Meal expenses: 5010",
-                        "Total expenses: 5010"
+                        "Breakfast\t1010\tX",
+                        "Meal expenses: 1010",
+                        "Total expenses: 1010"
+                        );
+    }
+    @Test
+    public void multipleMealsReportShowsAllExpenses() {
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"));
+
+        Expense firstExpense = new Expense();
+        firstExpense.amount = 500;
+        firstExpense.type = ExpenseType.BREAKFAST;
+        Expense secondExpense = new Expense();
+        secondExpense.amount = 5010;
+        secondExpense.type = ExpenseType.DINNER;
+        Expense thirdExpense = new Expense();
+        thirdExpense.amount = 1010;
+        thirdExpense.type = ExpenseType.CAR_RENTAL;
+
+        expenseReport.printReport(List.of(firstExpense, secondExpense, thirdExpense));
+
+        assertThat(expenseReport.report())
+                .containsExactly(
+                        "Expenses 2023-04-05",
+                        "Breakfast	500	 ",
+                        "Dinner	5010	X",
+                        "Car Rental	1010	 ",
+                        "Meal expenses: 5510",
+                        "Total expenses: 6520"
                         );
     }
 
