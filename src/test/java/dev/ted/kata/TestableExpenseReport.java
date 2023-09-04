@@ -1,5 +1,7 @@
 package dev.ted.kata;
 
+import dev.ted.kata.adapter.ExpensePrinter;
+
 import java.util.ArrayList;
 import java.util.List;
 

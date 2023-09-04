@@ -1,5 +1,8 @@
 package dev.ted.kata;
 
+import dev.ted.kata.adapter.ExpensePrinter;
+import dev.ted.kata.domain.Expense;
+import dev.ted.kata.domain.ExpenseType;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

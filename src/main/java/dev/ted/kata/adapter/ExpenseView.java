@@ -1,4 +1,6 @@
-package dev.ted.kata;
+package dev.ted.kata.adapter;
+
+import dev.ted.kata.domain.DisplayExpense;
 
 public class ExpenseView {
 

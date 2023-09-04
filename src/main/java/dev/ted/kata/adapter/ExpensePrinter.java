@@ -1,4 +1,8 @@
-package dev.ted.kata;
+package dev.ted.kata.adapter;
+
+import dev.ted.kata.domain.DisplayExpense;
+import dev.ted.kata.domain.Expense;
+import dev.ted.kata.domain.Expenses;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +24,7 @@ public class ExpensePrinter {
 
     public void printReport(List<Expense> expenses) {
         print(expenseView.reportTitle(this.dateProvider));
-        ExpenseEngine expenseEngine = new ExpenseEngine(expenses);
+        Expenses expenseEngine = new Expenses(expenses);
         for (DisplayExpense individualExpense : expenseEngine.calculateIndividualExpenses()) {
             print(expenseView.individualExpenses(individualExpense));
         }

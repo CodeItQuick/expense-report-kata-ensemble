@@ -1,4 +1,4 @@
-package dev.ted.kata;
+package dev.ted.kata.domain;
 
 public class DisplayExpense {
     public int amount;

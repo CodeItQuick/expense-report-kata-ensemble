@@ -1,12 +1,12 @@
-package dev.ted.kata;
+package dev.ted.kata.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpenseEngine {
+public class Expenses {
     private List<Expense> expenses;
 
-    public ExpenseEngine(List<Expense> expenses) {
+    public Expenses(List<Expense> expenses) {
         this.expenses = expenses;
     }
 

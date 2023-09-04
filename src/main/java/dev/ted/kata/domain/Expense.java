@@ -1,8 +1,8 @@
-package dev.ted.kata;
+package dev.ted.kata.domain;
 
-class Expense {
-    ExpenseType type;
-    int amount;
+public class Expense {
+    public ExpenseType type;
+    public int amount;
     public int calculateMealExpenses() {
        if (type == ExpenseType.DINNER || type == ExpenseType.BREAKFAST) {
            return amount;
