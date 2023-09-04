@@ -5,6 +5,7 @@ import dev.ted.kata.adapter.ExpenseView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Expenses {
     private List<Expense> expenses;
@@ -48,6 +49,6 @@ public class Expenses {
         int mealExpenses = calculateMealExpenses();
         int total = calculateTotalExpenses();
         List<DisplayExpense> individualExpenses = calculateIndividualExpenses();
-        return new ExpenseView(mealExpenses, total, dateProvider.currentDate().toString(), individualExpenses);
+        return new ExpenseView(mealExpenses, total, dateProvider.currentDate().toString(), individualExpenses.stream().map(x -> x.expenseLabel).collect(Collectors.toList()));
     }
 }

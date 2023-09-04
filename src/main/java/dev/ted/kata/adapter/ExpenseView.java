@@ -1,7 +1,5 @@
 package dev.ted.kata.adapter;
 
-import dev.ted.kata.domain.DisplayExpense;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,19 +8,19 @@ public class ExpenseView {
     private int mealExpenses;
     private int totalExpenses;
     private String expenseDate;
-    private List<DisplayExpense> individualExpenses;
+    private List<String> individualExpenses;
 
-    public ExpenseView(int mealExpenses, int totalExpenses, String expenseDate, List<DisplayExpense> individualExpenses) {
+    public ExpenseView(int mealExpenses, int total, String expenseDate, List<String> individualExpensesTwo) {
         this.mealExpenses = mealExpenses;
-        this.totalExpenses = totalExpenses;
+        this.totalExpenses = total;
         this.expenseDate = expenseDate;
-        this.individualExpenses = individualExpenses;
+        this.individualExpenses = individualExpensesTwo;
     }
 
     List<String> displayIndividualExpenses() {
         List<String> messages = new ArrayList<>();
-        for (DisplayExpense individualExpense : individualExpenses) {
-            String message = individualExpense.expenseLabel;
+        for (String individualExpense : individualExpenses) {
+            String message = individualExpense;
             messages.add(message);
         }
         return messages;
