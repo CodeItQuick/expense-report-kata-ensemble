@@ -20,8 +20,9 @@ public class Expenses {
         for (Expense expense : this.expenses) {
             DisplayExpense singleExpense = new DisplayExpense();
             singleExpense.type = expense.calculateExpenseString();
-            singleExpense.isOverExpensed = expense.isOverexpensedMeal() ? "X" : " ";
+            singleExpense.isOverExpensed = expense.isOverexpensedMeal();
             singleExpense.amount = expense.amount();
+            singleExpense.expenseLabel = expense.calculateExpenseString() + "\t" + expense.amount()  + "\t" + expense.isOverexpensedMeal();
             displayExpenses.add(singleExpense);
         }
         return displayExpenses;

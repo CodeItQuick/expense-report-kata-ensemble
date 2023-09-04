@@ -22,14 +22,10 @@ public class ExpenseView {
     List<String> displayIndividualExpenses() {
         List<String> messages = new ArrayList<>();
         for (DisplayExpense individualExpense : individualExpenses) {
-            String message = individualExpense.type + "\t" + individualExpense.amount + "\t" + individualExpense.isOverExpensed;
+            String message = individualExpense.expenseLabel;
             messages.add(message);
         }
         return messages;
-    }
-
-    public String individualExpenses(DisplayExpense expense) {
-        return expense.type + "\t" + expense.amount + "\t" + expense.isOverExpensed;
     }
 
     public String reportTitle() {

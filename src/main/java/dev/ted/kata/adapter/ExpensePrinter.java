@@ -12,9 +12,11 @@ import java.util.List;
 public class ExpensePrinter {
 
     private final DateProvider dateProvider;
+    private final SystemOutProvider systemOutProvider;
 
     protected ExpensePrinter(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
+        this.systemOutProvider = new SystemOutProvider();
     }
 
     public static ExpensePrinter create() {
@@ -36,7 +38,7 @@ public class ExpensePrinter {
 
     // outside world
     protected void print(String message) {
-        SystemOutProvider.ServicePrint(message);
+        this.systemOutProvider.ServicePrint(message);
     }
 
 }
