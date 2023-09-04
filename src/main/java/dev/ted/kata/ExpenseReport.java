@@ -6,63 +6,35 @@ import java.util.List;
 public class ExpenseReport {
 
     private final DateProvider dateProvider;
+    private final ExpenseDisplayLayer expenseDisplayLayer;
 
-    protected ExpenseReport(DateProvider dateProvider) {
+    protected ExpenseReport(DateProvider dateProvider, ExpenseDisplayLayer expenseDisplayLayer) {
         this.dateProvider = dateProvider;
+        this.expenseDisplayLayer = expenseDisplayLayer;
     }
 
     public static ExpenseReport create() {
-        return new ExpenseReport(new RealDateProvider());
+        final RealDateProvider dateProvider1 = new RealDateProvider();
+        return new ExpenseReport(dateProvider1, new ExpenseDisplayLayer());
     }
 
     public void printReport(List<Expense> expenses) {
-        int total = 0;
-        int mealExpenses = 0;
 
-        print("Expenses " + dateProvider.currentDate());
+        expenseDisplayLayer.printReportTitle(this, dateProvider);
 
-        for (Expense expense : expenses) {
-            mealExpenses = calculateMealExpenses(mealExpenses, expense);
+        List<DisplayExpense> displayExpenses = ExpenseEngine.calculateIndividualExpenses(expenses);
+        expenseDisplayLayer.printIndividualExpense(this, displayExpenses);
 
-            printIndividualExpense(expense);
+        int mealExpenses = ExpenseEngine.calculateMealExpenses(expenses);
+        expenseDisplayLayer.printMealExpenseTotal(mealExpenses, this);
 
-            total += expense.amount;
-        }
-
-        print("Meal expenses: " + mealExpenses);
-        print("Total expenses: " + total);
+        int total = ExpenseEngine.calculateTotalExpenses(expenses);
+        expenseDisplayLayer.printTotalExpenses(total, this);
     }
 
-    private void printIndividualExpense(Expense expense) {
-        String expenseName = switch (expense.type) {
-            case DINNER -> "Dinner";
-            case BREAKFAST -> "Breakfast";
-            case CAR_RENTAL -> "Car Rental";
-        };
-
-        if (isOverexpensedMeal(expense)) {
-            print(expenseName + "\t" + expense.amount + "\t" + "X");
-        }
-        else {
-            print(expenseName + "\t" + expense.amount + "\t" + " ");
-        }
-    }
-
-    private int calculateMealExpenses(int mealExpenses, Expense expense) {
-        if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
-            mealExpenses += expense.amount;
-        }
-        return mealExpenses;
-    }
-
-    private boolean isOverexpensedMeal(Expense expense) {
-        boolean dinnerOverExpensed = expense.type == ExpenseType.DINNER && expense.amount > 5000;
-        boolean breakfastOverExpensed = expense.type == ExpenseType.BREAKFAST && expense.amount > 1000;
-        return dinnerOverExpensed || breakfastOverExpensed;
-    }
-
+    // outside world
     protected void print(String message) {
-        System.out.println(message);
+        System.out.println();
     }
 
     public static class RealDateProvider implements DateProvider {

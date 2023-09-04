@@ -1,8 +1,6 @@
 package dev.ted.kata;
 
-import com.github.larseckart.tcr.TestCommitRevertMainExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +9,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@ExtendWith(TestCommitRevertMainExtension.class)
 public class ExpenseReportTest {
 
     @Test
@@ -25,7 +22,7 @@ public class ExpenseReportTest {
     @Test
     public void emptyExpenseReportShowsEmptyReceipt() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         expenseReport.printReport(Collections.emptyList());
 
@@ -40,7 +37,7 @@ public class ExpenseReportTest {
     @Test
     public void oneBreakfastExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         Expense expense = new Expense();
         expense.amount = 10;
@@ -59,7 +56,7 @@ public class ExpenseReportTest {
     @Test
     public void oneDinnerExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         Expense expense = new Expense();
         expense.amount = 10;
@@ -78,7 +75,7 @@ public class ExpenseReportTest {
     @Test
     public void oneCarRentalExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         Expense expense = new Expense();
         expense.amount = 10;
@@ -97,7 +94,7 @@ public class ExpenseReportTest {
     @Test
     public void oneDinnerExpenseOverMaximumReportShowsMealExpenseAndMarker() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         Expense expense = new Expense();
         expense.amount = 5010;
@@ -116,7 +113,7 @@ public class ExpenseReportTest {
     @Test
     public void oneBreakfastExpenseOverMaximumReportShowsMealExpenseAndMarker() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         Expense expense = new Expense();
         expense.amount = 1010;
@@ -135,7 +132,7 @@ public class ExpenseReportTest {
     @Test
     public void multipleMealsReportShowsAllExpenses() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
 
         Expense firstExpense = new Expense();
         firstExpense.amount = 500;
@@ -160,21 +157,29 @@ public class ExpenseReportTest {
                         );
     }
 
-    private class TestableExpenseReport extends ExpenseReport {
-        private final List<String> message = new ArrayList<>();
+    @Test
+    public void expenseDisplayLayerCanPrintNoExpenses() {
+        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer();
+        List<DisplayExpense> expenses = new ArrayList<>();
 
-        private TestableExpenseReport(DateProvider dateProvider) {
-            super(dateProvider);
-        }
+        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"), expenseDisplayLayer);
+        expenseDisplayLayer.printIndividualExpense(expenseReport, expenses);
 
-        @Override
-        protected void print(String message) {
-            this.message.add(message);
-            super.print(message);
-        }
-
-        public List<String> report() {
-            return message;
-        }
+        assertThat(expenseReport.report()).hasSize(0);
     }
+    @Test
+    public void expenseDisplayLayerCanPrintMultipleExpenses() {
+        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer();
+        DisplayExpense displayExpense = new DisplayExpense();
+        displayExpense.isOverExpensed = true;
+        displayExpense.amount = 10;
+        displayExpense.type = "Breakfast";
+        List<DisplayExpense> expenses = List.of(displayExpense);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"), expenseDisplayLayer);
+
+        expenseDisplayLayer.printIndividualExpense(expenseReport, expenses);
+
+        assertThat(expenseReport.report()).containsExactly("Breakfast	10	X");
+    }
+
 }
