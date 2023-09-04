@@ -6,11 +6,11 @@ import java.util.List;
 public class ExpenseReport {
 
     private final DateProvider dateProvider;
-    private final ExpenseDisplayLayer expenseDisplayLayer;
+    private final ExpenseDisplayLayer expenseDisplay;
 
     protected ExpenseReport(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
-        this.expenseDisplayLayer = new ExpenseDisplayLayer(this);
+        expenseDisplay = new ExpenseDisplayLayer(this);
     }
 
     public static ExpenseReport create() {
@@ -19,17 +19,10 @@ public class ExpenseReport {
     }
 
     public void printReport(List<Expense> expenses) {
-
-        List<DisplayExpense> displayExpenses = ExpenseEngine.calculateIndividualExpenses(expenses);
-        int mealExpenses = ExpenseEngine.calculateMealExpenses(expenses);
-        int total = ExpenseEngine.calculateTotalExpenses(expenses);
-
-        ExpenseDisplayLayer expenseDisplay = new ExpenseDisplayLayer(this);
-        expenseDisplay.printFullReport(
-                this.dateProvider,
-                displayExpenses,
-                mealExpenses,
-                total);
+        expenseDisplay.printReportTitle(this.dateProvider);
+        expenseDisplay.printIndividualExpense(ExpenseEngine.calculateIndividualExpenses(expenses));
+        expenseDisplay.printMealExpenseTotal(ExpenseEngine.calculateMealExpenses(expenses));
+        expenseDisplay.printTotalExpenses(ExpenseEngine.calculateTotalExpenses(expenses));
     }
 
     // outside world

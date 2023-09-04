@@ -11,24 +11,8 @@ public class ExpenseDisplayLayer {
         this.expenseReport = expenseReport;
     }
 
-    public void printFullReport(ExpenseReport.DateProvider dateProvider, List<DisplayExpense> displayExpenses1, int mealExpenses, int total) {
-        printReportTitle(dateProvider);
-        printIndividualExpense(displayExpenses1);
-        printMealExpenseTotal(mealExpenses);
-        printTotalExpenses(total);
-    }
-
     public void printReportTitle(ExpenseReport.DateProvider dateProvider) {
         this.expenseReport.print("Expenses " + dateProvider.currentDate());
-    }
-
-    public void printIndividualExpense(int expenseAmount, String expenseName, boolean isOverexpensed) {
-        if (isOverexpensed) {
-            this.expenseReport.print(expenseName + "\t" + expenseAmount + "\t" + "X");
-        }
-        else {
-            this.expenseReport.print(expenseName + "\t" + expenseAmount + "\t" + " ");
-        }
     }
 
     public void printMealExpenseTotal(int mealExpenses) {
@@ -41,7 +25,12 @@ public class ExpenseDisplayLayer {
 
     public void printIndividualExpense(List<DisplayExpense> expenses) {
         for (DisplayExpense expense : expenses) {
-            printIndividualExpense(expense.amount, expense.type, expense.isOverExpensed);
+            if (expense.isOverExpensed) {
+                this.expenseReport.print(expense.type + "\t" + expense.amount + "\t" + "X");
+            }
+            else {
+                this.expenseReport.print(expense.type + "\t" + expense.amount + "\t" + " ");
+            }
         }
     }
 }
