@@ -18,11 +18,16 @@ public class ExpensePrinter {
         this.expensesService = new ExpensesService(dateProvider, expenseList);
     }
 
-    public static ExpensePrinter create(List<Expense> expenseList) {
-        return new ExpensePrinter(new RealDateProvider(), expenseList);
+    public ExpensePrinter(DateProvider dateProvider) {
+        this.systemOutProvider = new SystemOutProvider();
+        this.expensesService = new ExpensesService(dateProvider);
     }
 
-    public void printReport() {
+    public static ExpensePrinter create() {
+        return new ExpensePrinter(new RealDateProvider());
+    }
+
+    public void printExistingReport() {
         ExpenseView expenseView = expensesService.viewExpenses();
 
         print(expenseView.reportTitle());

@@ -15,6 +15,11 @@ public class ExpensesService {
         this.expenseList = expenseList;
     }
 
+    public ExpensesService(DateProvider dateProvider) {
+        this.dateProvider = dateProvider;
+        this.expenseList = new ExistingExpensesProvider().expenses;
+    }
+
     public ExpenseView viewExpenses() {
         Expenses expenses = new Expenses(this.expenseList);
         int mealExpenses = expenses.calculateMealExpenses();
