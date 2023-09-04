@@ -1,8 +1,14 @@
 package dev.ted.kata.domain;
 
 public class Expense {
-    public ExpenseType type;
-    public int amount;
+    private ExpenseType type;
+    private int amount;
+
+    public Expense(ExpenseType type, int amount) {
+        this.type = type;
+        this.amount = amount;
+    }
+
     public int calculateMealExpenses() {
        if (type == ExpenseType.DINNER || type == ExpenseType.BREAKFAST) {
            return amount;
@@ -24,5 +30,9 @@ public class Expense {
         };
 
         return expenseName;
+    }
+
+    public int amount() {
+        return amount;
     }
 }

@@ -16,7 +16,7 @@ public class Expenses {
             DisplayExpense singleExpense = new DisplayExpense();
             singleExpense.type = expense.calculateExpenseString();
             singleExpense.isOverExpensed = expense.isOverexpensedMeal() ? "X" : " ";
-            singleExpense.amount = expense.amount;
+            singleExpense.amount = expense.amount();
             displayExpenses.add(singleExpense);
         }
         return displayExpenses;
@@ -25,7 +25,7 @@ public class Expenses {
      public int calculateTotalExpenses() {
         int total = 0;
         for (Expense expense : this.expenses) {
-            total += expense.amount;
+            total += expense.amount();
         }
         return total;
     }

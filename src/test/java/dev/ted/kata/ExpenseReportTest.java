@@ -41,9 +41,7 @@ public class ExpenseReportTest {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"));
 
-        Expense expense = new Expense();
-        expense.amount = 10;
-        expense.type = ExpenseType.BREAKFAST;
+        Expense expense = new Expense(ExpenseType.BREAKFAST, 10);
 
         expenseReport.printReport(List.of(expense));
 
@@ -60,9 +58,7 @@ public class ExpenseReportTest {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"));
 
-        Expense expense = new Expense();
-        expense.amount = 10;
-        expense.type = ExpenseType.DINNER;
+        Expense expense = new Expense(ExpenseType.DINNER, 10);
 
         expenseReport.printReport(List.of(expense));
 
@@ -78,10 +74,7 @@ public class ExpenseReportTest {
     public void oneCarRentalExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"));
-
-        Expense expense = new Expense();
-        expense.amount = 10;
-        expense.type = ExpenseType.CAR_RENTAL;
+        Expense expense = new Expense(ExpenseType.CAR_RENTAL, 10);
 
         expenseReport.printReport(List.of(expense));
 
@@ -97,10 +90,7 @@ public class ExpenseReportTest {
     public void oneDinnerExpenseOverMaximumReportShowsMealExpenseAndMarker() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"));
-
-        Expense expense = new Expense();
-        expense.amount = 5010;
-        expense.type = ExpenseType.DINNER;
+        Expense expense = new Expense(ExpenseType.DINNER, 5010);
 
         expenseReport.printReport(List.of(expense));
 
@@ -116,10 +106,7 @@ public class ExpenseReportTest {
     public void oneBreakfastExpenseOverMaximumReportShowsMealExpenseAndMarker() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"));
-
-        Expense expense = new Expense();
-        expense.amount = 1010;
-        expense.type = ExpenseType.BREAKFAST;
+        Expense expense = new Expense(ExpenseType.BREAKFAST, 1010);
 
         expenseReport.printReport(List.of(expense));
 
@@ -135,16 +122,9 @@ public class ExpenseReportTest {
     public void multipleMealsReportShowsAllExpenses() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"));
-
-        Expense firstExpense = new Expense();
-        firstExpense.amount = 500;
-        firstExpense.type = ExpenseType.BREAKFAST;
-        Expense secondExpense = new Expense();
-        secondExpense.amount = 5010;
-        secondExpense.type = ExpenseType.DINNER;
-        Expense thirdExpense = new Expense();
-        thirdExpense.amount = 1010;
-        thirdExpense.type = ExpenseType.CAR_RENTAL;
+        Expense firstExpense = new Expense(ExpenseType.BREAKFAST, 500);
+        Expense secondExpense = new Expense(ExpenseType.DINNER, 5010);
+        Expense thirdExpense = new Expense(ExpenseType.CAR_RENTAL, 1010);
 
         expenseReport.printReport(List.of(firstExpense, secondExpense, thirdExpense));
 
