@@ -21,11 +21,11 @@ public class ExpensePrinter {
     public void printReport(List<Expense> expenses) {
         print(expenseView.reportTitle(this.dateProvider));
         ExpenseEngine expenseEngine = new ExpenseEngine(expenses);
-        for (DisplayExpense individualExpense : expenseEngine.calculateIndividualExpenses(expenses)) {
+        for (DisplayExpense individualExpense : expenseEngine.calculateIndividualExpenses()) {
             print(expenseView.individualExpenses(individualExpense));
         }
-        print(expenseView.mealExpenseTotal(expenseEngine.calculateMealExpenses(expenses)));
-        print(expenseView.totalExpenses(expenseEngine.calculateTotalExpenses(expenses)));
+        print(expenseView.mealExpenseTotal(expenseEngine.calculateMealExpenses()));
+        print(expenseView.totalExpenses(expenseEngine.calculateTotalExpenses()));
     }
 
     // outside world

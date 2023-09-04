@@ -10,42 +10,19 @@ public class ExpenseEngine {
         this.expenses = expenses;
     }
 
-    public String calculateExpenseString(Expense expense) {
-        String expenseName = switch (expense.type) {
-            case DINNER -> "Dinner";
-            case BREAKFAST -> "Breakfast";
-            case CAR_RENTAL -> "Car Rental";
-        };
-
-        return expenseName;
-    }
-
-     public int calculateMealExpenses(Expense expense) {
-        if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
-            return expense.amount;
-        }
-        return 0;
-    }
-
-     public boolean isOverexpensedMeal(Expense expense) {
-        boolean dinnerOverExpensed = expense.type == ExpenseType.DINNER && expense.amount > 5000;
-        boolean breakfastOverExpensed = expense.type == ExpenseType.BREAKFAST && expense.amount > 1000;
-        return dinnerOverExpensed || breakfastOverExpensed;
-    }
-
-     public List<DisplayExpense> calculateIndividualExpenses(List<Expense> expenses) {
+    public List<DisplayExpense> calculateIndividualExpenses() {
         List<DisplayExpense> displayExpenses = new ArrayList<>();
         for (Expense expense : this.expenses) {
             DisplayExpense singleExpense = new DisplayExpense();
-            singleExpense.type = calculateExpenseString(expense);
-            singleExpense.isOverExpensed = isOverexpensedMeal(expense) ? "X" : " ";
+            singleExpense.type = expense.calculateExpenseString();
+            singleExpense.isOverExpensed = expense.isOverexpensedMeal() ? "X" : " ";
             singleExpense.amount = expense.amount;
             displayExpenses.add(singleExpense);
         }
         return displayExpenses;
     }
 
-     public int calculateTotalExpenses(List<Expense> expenses) {
+     public int calculateTotalExpenses() {
         int total = 0;
         for (Expense expense : this.expenses) {
             total += expense.amount;
@@ -53,10 +30,10 @@ public class ExpenseEngine {
         return total;
     }
 
-     public int calculateMealExpenses(List<Expense> expenses) {
+     public int calculateMealExpenses() {
         int mealExpenses = 0;
         for (Expense expense : this.expenses) {
-            mealExpenses += calculateMealExpenses(expense);
+            mealExpenses += expense.calculateMealExpenses();
         }
         return mealExpenses;
     }
