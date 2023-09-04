@@ -6,7 +6,7 @@ import dev.ted.kata.domain.ExpenseType;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -15,18 +15,18 @@ public class ExpenseReportTest {
 
     @Test
     public void emptyExpenseReportDoesNotThrowException() {
-        ExpensePrinter expenseReport = ExpensePrinter.create();
+        ExpensePrinter expenseReport = ExpensePrinter.create(new ArrayList<>());
 
-        assertThatCode(() -> expenseReport.printReport(Collections.emptyList()))
+        assertThatCode(() -> expenseReport.printReport())
                 .doesNotThrowAnyException();
     }
 
     @Test
     public void emptyExpenseReportShowsEmptyReceipt() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
+                () -> LocalDate.parse("2023-04-05"), new ArrayList<>());
 
-        expenseReport.printReport(Collections.emptyList());
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
@@ -38,12 +38,12 @@ public class ExpenseReportTest {
 
     @Test
     public void oneBreakfastExpenseReportShowsMealExpense() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense(ExpenseType.BREAKFAST, 10);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
-        expenseReport.printReport(List.of(expense));
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
@@ -55,12 +55,12 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneDinnerExpenseReportShowsMealExpense() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense(ExpenseType.DINNER, 10);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
-        expenseReport.printReport(List.of(expense));
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
@@ -72,11 +72,11 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneCarRentalExpenseReportShowsMealExpense() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
         Expense expense = new Expense(ExpenseType.CAR_RENTAL, 10);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
-        expenseReport.printReport(List.of(expense));
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
@@ -88,11 +88,11 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneDinnerExpenseOverMaximumReportShowsMealExpenseAndMarker() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
         Expense expense = new Expense(ExpenseType.DINNER, 5010);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
-        expenseReport.printReport(List.of(expense));
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
@@ -104,11 +104,11 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneBreakfastExpenseOverMaximumReportShowsMealExpenseAndMarker() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
         Expense expense = new Expense(ExpenseType.BREAKFAST, 1010);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
-        expenseReport.printReport(List.of(expense));
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
@@ -120,13 +120,13 @@ public class ExpenseReportTest {
     }
     @Test
     public void multipleMealsReportShowsAllExpenses() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"));
         Expense firstExpense = new Expense(ExpenseType.BREAKFAST, 500);
         Expense secondExpense = new Expense(ExpenseType.DINNER, 5010);
         Expense thirdExpense = new Expense(ExpenseType.CAR_RENTAL, 1010);
+        TestableExpenseReport expenseReport = new TestableExpenseReport(
+                () -> LocalDate.parse("2023-04-05"), List.of(firstExpense, secondExpense, thirdExpense));
 
-        expenseReport.printReport(List.of(firstExpense, secondExpense, thirdExpense));
+        expenseReport.printReport();
 
         assertThat(expenseReport.report())
                 .containsExactly(
