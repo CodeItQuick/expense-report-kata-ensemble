@@ -16,14 +16,14 @@ public class Expenses {
     public List<String> calculateIndividualExpenses() {
         List<DisplayExpense> displayExpenses = new ArrayList<>();
         for (Expense expense : this.expenses) {
-            DisplayExpense singleExpense = new DisplayExpense();
-            singleExpense.type = expense.calculateExpenseString();
-            singleExpense.isOverExpensed = expense.isOverexpensedMeal();
-            singleExpense.amount = expense.amount();
-            singleExpense.expenseLabel = expense.calculateExpenseString() + "\t" + expense.amount()  + "\t" + expense.isOverexpensedMeal();
+            String type = expense.calculateExpenseString();
+            String isOverExpensed = expense.isOverexpensedMeal();
+            int amount = expense.amount();
+            String expenseLabel = expense.calculateExpenseString() + "\t" + expense.amount()  + "\t" + expense.isOverexpensedMeal();
+            DisplayExpense singleExpense = new DisplayExpense(amount, type, isOverExpensed, expenseLabel);
             displayExpenses.add(singleExpense);
         }
-        return displayExpenses.stream().map(x -> x.expenseLabel).collect(Collectors.toList());
+        return displayExpenses.stream().map(x -> x.expenseLabel()).collect(Collectors.toList());
     }
 
      public int calculateTotalExpenses() {

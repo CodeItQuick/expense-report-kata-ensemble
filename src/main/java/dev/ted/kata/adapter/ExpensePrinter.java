@@ -1,7 +1,6 @@
 package dev.ted.kata.adapter;
 
 import dev.ted.kata.domain.Expense;
-import dev.ted.kata.domain.Expenses;
 import dev.ted.kata.service.DateProvider;
 import dev.ted.kata.service.ExpensesService;
 import dev.ted.kata.service.RealDateProvider;
@@ -11,16 +10,12 @@ import java.util.List;
 
 public class ExpensePrinter {
 
-    private final DateProvider dateProvider;
-    private List<Expense> expenseList;
     private final SystemOutProvider systemOutProvider;
     private final ExpensesService expensesService;
 
     protected ExpensePrinter(DateProvider dateProvider, List<Expense> expenseList) {
-        this.dateProvider = dateProvider;
-        this.expenseList = expenseList;
         this.systemOutProvider = new SystemOutProvider();
-        expensesService = new ExpensesService(dateProvider);
+        expensesService = new ExpensesService(dateProvider, expenseList);
     }
 
     public static ExpensePrinter create(List<Expense> expenseList) {
@@ -28,7 +23,7 @@ public class ExpensePrinter {
     }
 
     public void printReport() {
-        ExpenseView expenseView = expensesService.viewExpenses(this.expenseList);
+        ExpenseView expenseView = expensesService.viewExpenses();
 
         print(expenseView.reportTitle());
         for(String expenseMessage: expenseView.displayIndividualExpenses()) {
