@@ -3,7 +3,6 @@ package dev.ted.kata;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class ExpenseReportTest {
 
     @Test
     public void emptyExpenseReportDoesNotThrowException() {
-        ExpenseReport expenseReport = ExpenseReport.create();
+        ExpensePrinter expenseReport = ExpensePrinter.create();
 
         assertThatCode(() -> expenseReport.printReport(Collections.emptyList()))
                 .doesNotThrowAnyException();

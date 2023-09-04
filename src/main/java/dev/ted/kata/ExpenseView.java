@@ -10,7 +10,7 @@ public class ExpenseView {
         return expense.type + "\t" + expense.amount + "\t" + expense.isOverExpensed;
     }
 
-    public String reportTitle(ExpenseReport.DateProvider dateProvider) {
+    public String reportTitle(ExpensePrinter.DateProvider dateProvider) {
         return "Expenses " + dateProvider.currentDate();
     }
 

@@ -3,28 +3,29 @@ package dev.ted.kata;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ExpenseReport {
+public class ExpensePrinter {
 
     private final DateProvider dateProvider;
     private final ExpenseView expenseView;
 
-    protected ExpenseReport(DateProvider dateProvider) {
+    protected ExpensePrinter(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
         expenseView = new ExpenseView();
     }
 
-    public static ExpenseReport create() {
+    public static ExpensePrinter create() {
         final RealDateProvider dateProvider1 = new RealDateProvider();
-        return new ExpenseReport(dateProvider1);
+        return new ExpensePrinter(dateProvider1);
     }
 
     public void printReport(List<Expense> expenses) {
         print(expenseView.reportTitle(this.dateProvider));
-        for (DisplayExpense individualExpense : ExpenseEngine.calculateIndividualExpenses(expenses)) {
+        ExpenseEngine expenseEngine = new ExpenseEngine(expenses);
+        for (DisplayExpense individualExpense : expenseEngine.calculateIndividualExpenses(expenses)) {
             print(expenseView.individualExpenses(individualExpense));
         }
-        print(expenseView.mealExpenseTotal(ExpenseEngine.calculateMealExpenses(expenses)));
-        print(expenseView.totalExpenses(ExpenseEngine.calculateTotalExpenses(expenses)));
+        print(expenseView.mealExpenseTotal(expenseEngine.calculateMealExpenses(expenses)));
+        print(expenseView.totalExpenses(expenseEngine.calculateTotalExpenses(expenses)));
     }
 
     // outside world

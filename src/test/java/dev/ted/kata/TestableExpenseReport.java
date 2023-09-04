@@ -3,10 +3,10 @@ package dev.ted.kata;
 import java.util.ArrayList;
 import java.util.List;
 
-class TestableExpenseReport extends ExpenseReport {
+class TestableExpenseReport extends ExpensePrinter {
     private final List<String> message = new ArrayList<>();
 
-    TestableExpenseReport(ExpenseReport.DateProvider dateProvider) {
+    TestableExpenseReport(ExpensePrinter.DateProvider dateProvider) {
         super(dateProvider);
     }
 
