@@ -1,13 +1,18 @@
 package dev.ted.kata.domain;
 
+import dev.ted.kata.service.DateProvider;
+import dev.ted.kata.adapter.ExpenseView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Expenses {
     private List<Expense> expenses;
+    private DateProvider dateProvider;
 
-    public Expenses(List<Expense> expenses) {
+    public Expenses(List<Expense> expenses, DateProvider dateProvider) {
         this.expenses = expenses;
+        this.dateProvider = dateProvider;
     }
 
     public List<DisplayExpense> calculateIndividualExpenses() {
@@ -36,5 +41,12 @@ public class Expenses {
             mealExpenses += expense.calculateMealExpenses();
         }
         return mealExpenses;
+    }
+
+    public ExpenseView viewExpenses() {
+        int mealExpenses = calculateMealExpenses();
+        int total = calculateTotalExpenses();
+        List<DisplayExpense> individualExpenses = calculateIndividualExpenses();
+        return new ExpenseView(mealExpenses, total, dateProvider.currentDate().toString(), individualExpenses);
     }
 }
