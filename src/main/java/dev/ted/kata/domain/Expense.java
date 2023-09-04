@@ -22,14 +22,8 @@ public class Expense {
         return dinnerOverExpensed || breakfastOverExpensed ? "X" : " ";
     }
 
-    public String calculateExpenseString() {
-        String expenseName = switch (type) {
-            case DINNER -> "Dinner";
-            case BREAKFAST -> "Breakfast";
-            case CAR_RENTAL -> "Car Rental";
-        };
-
-        return expenseName;
+    public String expenseType() {
+        return type.getString();
     }
 
     public int amount() {

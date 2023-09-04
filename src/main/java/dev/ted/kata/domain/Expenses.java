@@ -1,10 +1,7 @@
 package dev.ted.kata.domain;
 
-import dev.ted.kata.service.DateProvider;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Expenses {
     private List<Expense> expenses;
@@ -14,16 +11,12 @@ public class Expenses {
     }
 
     public List<String> calculateIndividualExpenses() {
-        List<DisplayExpense> displayExpenses = new ArrayList<>();
+        List<String> displayExpenses = new ArrayList<>();
         for (Expense expense : this.expenses) {
-            String type = expense.calculateExpenseString();
-            String isOverExpensed = expense.isOverexpensedMeal();
-            int amount = expense.amount();
-            String expenseLabel = expense.calculateExpenseString() + "\t" + expense.amount()  + "\t" + expense.isOverexpensedMeal();
-            DisplayExpense singleExpense = new DisplayExpense(amount, type, isOverExpensed, expenseLabel);
-            displayExpenses.add(singleExpense);
+            String label = expense.expenseType() + "\t" + expense.amount() + "\t" + expense.isOverexpensedMeal();
+            displayExpenses.add(label);
         }
-        return displayExpenses.stream().map(x -> x.expenseLabel()).collect(Collectors.toList());
+        return displayExpenses;
     }
 
      public int calculateTotalExpenses() {

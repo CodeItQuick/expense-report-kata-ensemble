@@ -15,7 +15,7 @@ public class ExpensePrinter {
 
     protected ExpensePrinter(DateProvider dateProvider, List<Expense> expenseList) {
         this.systemOutProvider = new SystemOutProvider();
-        expensesService = new ExpensesService(dateProvider, expenseList);
+        this.expensesService = new ExpensesService(dateProvider, expenseList);
     }
 
     public static ExpensePrinter create(List<Expense> expenseList) {
