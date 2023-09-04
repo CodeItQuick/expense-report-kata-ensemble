@@ -32,7 +32,7 @@ public class ExpenseEngine {
         for (Expense expense : expenses) {
             DisplayExpense singleExpense = new DisplayExpense();
             singleExpense.type = calculateExpenseString(expense);
-            singleExpense.isOverExpensed = isOverexpensedMeal(expense);
+            singleExpense.isOverExpensed = isOverexpensedMeal(expense) ? "X" : " ";
             singleExpense.amount = expense.amount;
             displayExpenses.add(singleExpense);
         }

@@ -10,7 +10,7 @@ public class ExpenseReport {
 
     protected ExpenseReport(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
-        expenseDisplay = new ExpenseDisplayLayer(this);
+        expenseDisplay = new ExpenseDisplayLayer();
     }
 
     public static ExpenseReport create() {
@@ -19,15 +19,17 @@ public class ExpenseReport {
     }
 
     public void printReport(List<Expense> expenses) {
-        expenseDisplay.printReportTitle(this.dateProvider);
-        expenseDisplay.printIndividualExpense(ExpenseEngine.calculateIndividualExpenses(expenses));
-        expenseDisplay.printMealExpenseTotal(ExpenseEngine.calculateMealExpenses(expenses));
-        expenseDisplay.printTotalExpenses(ExpenseEngine.calculateTotalExpenses(expenses));
+        print(expenseDisplay.printReportTitle(this.dateProvider));
+        for (DisplayExpense individualExpense : ExpenseEngine.calculateIndividualExpenses(expenses)) {
+            print(expenseDisplay.printIndividualExpenses(individualExpense));
+        }
+        print(expenseDisplay.printMealExpenseTotal(ExpenseEngine.calculateMealExpenses(expenses)));
+        print(expenseDisplay.printTotalExpenses(ExpenseEngine.calculateTotalExpenses(expenses)));
     }
 
     // outside world
     protected void print(String message) {
-        System.out.println();
+        System.out.println(message);
     }
 
     public static class RealDateProvider implements DateProvider {

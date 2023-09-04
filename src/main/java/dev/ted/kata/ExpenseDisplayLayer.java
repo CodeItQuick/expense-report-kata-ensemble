@@ -1,36 +1,28 @@
 package dev.ted.kata;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseDisplayLayer {
 
-    private ExpenseReport expenseReport;
+    public ExpenseDisplayLayer() {
 
-    public ExpenseDisplayLayer(ExpenseReport expenseReport) {
-
-        this.expenseReport = expenseReport;
     }
 
-    public void printReportTitle(ExpenseReport.DateProvider dateProvider) {
-        this.expenseReport.print("Expenses " + dateProvider.currentDate());
+    public String printIndividualExpenses(DisplayExpense expense) {
+        return expense.type + "\t" + expense.amount + "\t" + expense.isOverExpensed;
     }
 
-    public void printMealExpenseTotal(int mealExpenses) {
-        this.expenseReport.print("Meal expenses: " + mealExpenses);
+    public String printReportTitle(ExpenseReport.DateProvider dateProvider) {
+        return "Expenses " + dateProvider.currentDate();
     }
 
-    public void printTotalExpenses(int total) {
-        this.expenseReport.print("Total expenses: " + total);
+    public String printMealExpenseTotal(int mealExpenses) {
+        return "Meal expenses: " + mealExpenses;
     }
 
-    public void printIndividualExpense(List<DisplayExpense> expenses) {
-        for (DisplayExpense expense : expenses) {
-            if (expense.isOverExpensed) {
-                this.expenseReport.print(expense.type + "\t" + expense.amount + "\t" + "X");
-            }
-            else {
-                this.expenseReport.print(expense.type + "\t" + expense.amount + "\t" + " ");
-            }
-        }
+    public String printTotalExpenses(int total) {
+        return "Total expenses: " + total;
     }
+
 }

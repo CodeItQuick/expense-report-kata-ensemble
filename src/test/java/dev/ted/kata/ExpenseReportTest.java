@@ -157,29 +157,4 @@ public class ExpenseReportTest {
                         );
     }
 
-    @Test
-    public void expenseDisplayLayerCanPrintNoExpenses() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"));
-        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer(expenseReport);
-        List<DisplayExpense> expenses = new ArrayList<>();
-
-        expenseDisplayLayer.printIndividualExpense(expenses);
-
-        assertThat(expenseReport.report()).hasSize(0);
-    }
-    @Test
-    public void expenseDisplayLayerCanPrintMultipleExpenses() {
-        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"));
-        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer(expenseReport);
-        DisplayExpense displayExpense = new DisplayExpense();
-        displayExpense.isOverExpensed = true;
-        displayExpense.amount = 10;
-        displayExpense.type = "Breakfast";
-        List<DisplayExpense> expenses = List.of(displayExpense);
-
-        expenseDisplayLayer.printIndividualExpense(expenses);
-
-        assertThat(expenseReport.report()).containsExactly("Breakfast	10	X");
-    }
-
 }
