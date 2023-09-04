@@ -10,11 +10,9 @@ import java.util.List;
 public class ExpensePrinter {
 
     private final DateProvider dateProvider;
-    private final ExpenseView expenseView;
 
     protected ExpensePrinter(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
-        expenseView = new ExpenseView();
     }
 
     public static ExpensePrinter create() {
@@ -22,14 +20,19 @@ public class ExpensePrinter {
         return new ExpensePrinter(dateProvider1);
     }
 
-    public void printReport(List<Expense> expenses) {
+    public void printReport(List<Expense> expenseList) {
+        Expenses expenses = new Expenses(expenseList);
+        int mealExpenses = expenses.calculateMealExpenses();
+        int total = expenses.calculateTotalExpenses();
+        ExpenseView expenseView = new ExpenseView(mealExpenses, total);
+
         print(expenseView.reportTitle(this.dateProvider));
-        Expenses expenseEngine = new Expenses(expenses);
-        for (DisplayExpense individualExpense : expenseEngine.calculateIndividualExpenses()) {
+        for (DisplayExpense individualExpense : expenses.calculateIndividualExpenses()) {
             print(expenseView.individualExpenses(individualExpense));
         }
-        print(expenseView.mealExpenseTotal(expenseEngine.calculateMealExpenses()));
-        print(expenseView.totalExpenses(expenseEngine.calculateTotalExpenses()));
+
+        print(expenseView.mealExpenseTotal());
+        print(expenseView.totalExpenses());
     }
 
     // outside world
