@@ -4,32 +4,44 @@ import java.util.List;
 
 public class ExpenseDisplayLayer {
 
-    protected ExpenseReport.DateProvider dateProvider;
+    private ExpenseReport expenseReport;
 
-    public void printReportTitle(ExpenseReport expenseReport, ExpenseReport.DateProvider dateProvider) {
-        expenseReport.print("Expenses " + dateProvider.currentDate());
+    public ExpenseDisplayLayer(ExpenseReport expenseReport) {
+
+        this.expenseReport = expenseReport;
     }
 
-    public void printIndividualExpense(ExpenseReport expenseReport, int expenseAmount, String expenseName, boolean isOverexpensed) {
+    public void printFullReport(ExpenseReport.DateProvider dateProvider, List<DisplayExpense> displayExpenses1, int mealExpenses, int total) {
+        printReportTitle(dateProvider);
+        printIndividualExpense(displayExpenses1);
+        printMealExpenseTotal(mealExpenses);
+        printTotalExpenses(total);
+    }
+
+    public void printReportTitle(ExpenseReport.DateProvider dateProvider) {
+        this.expenseReport.print("Expenses " + dateProvider.currentDate());
+    }
+
+    public void printIndividualExpense(int expenseAmount, String expenseName, boolean isOverexpensed) {
         if (isOverexpensed) {
-            expenseReport.print(expenseName + "\t" + expenseAmount + "\t" + "X");
+            this.expenseReport.print(expenseName + "\t" + expenseAmount + "\t" + "X");
         }
         else {
-            expenseReport.print(expenseName + "\t" + expenseAmount + "\t" + " ");
+            this.expenseReport.print(expenseName + "\t" + expenseAmount + "\t" + " ");
         }
     }
 
-    public void printMealExpenseTotal(int mealExpenses, ExpenseReport expenseReport) {
-        expenseReport.print("Meal expenses: " + mealExpenses);
+    public void printMealExpenseTotal(int mealExpenses) {
+        this.expenseReport.print("Meal expenses: " + mealExpenses);
     }
 
-    public void printTotalExpenses(int total, ExpenseReport expenseReport) {
-        expenseReport.print("Total expenses: " + total);
+    public void printTotalExpenses(int total) {
+        this.expenseReport.print("Total expenses: " + total);
     }
 
-    public void printIndividualExpense(ExpenseReport expenseReport, List<DisplayExpense> expenses) {
+    public void printIndividualExpense(List<DisplayExpense> expenses) {
         for (DisplayExpense expense : expenses) {
-            printIndividualExpense(expenseReport, expense.amount, expense.type, expense.isOverExpensed);
+            printIndividualExpense(expense.amount, expense.type, expense.isOverExpensed);
         }
     }
 }

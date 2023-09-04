@@ -8,28 +8,28 @@ public class ExpenseReport {
     private final DateProvider dateProvider;
     private final ExpenseDisplayLayer expenseDisplayLayer;
 
-    protected ExpenseReport(DateProvider dateProvider, ExpenseDisplayLayer expenseDisplayLayer) {
+    protected ExpenseReport(DateProvider dateProvider) {
         this.dateProvider = dateProvider;
-        this.expenseDisplayLayer = expenseDisplayLayer;
+        this.expenseDisplayLayer = new ExpenseDisplayLayer(this);
     }
 
     public static ExpenseReport create() {
         final RealDateProvider dateProvider1 = new RealDateProvider();
-        return new ExpenseReport(dateProvider1, new ExpenseDisplayLayer());
+        return new ExpenseReport(dateProvider1);
     }
 
     public void printReport(List<Expense> expenses) {
 
-        expenseDisplayLayer.printReportTitle(this, dateProvider);
-
         List<DisplayExpense> displayExpenses = ExpenseEngine.calculateIndividualExpenses(expenses);
-        expenseDisplayLayer.printIndividualExpense(this, displayExpenses);
-
         int mealExpenses = ExpenseEngine.calculateMealExpenses(expenses);
-        expenseDisplayLayer.printMealExpenseTotal(mealExpenses, this);
-
         int total = ExpenseEngine.calculateTotalExpenses(expenses);
-        expenseDisplayLayer.printTotalExpenses(total, this);
+
+        ExpenseDisplayLayer expenseDisplay = new ExpenseDisplayLayer(this);
+        expenseDisplay.printFullReport(
+                this.dateProvider,
+                displayExpenses,
+                mealExpenses,
+                total);
     }
 
     // outside world

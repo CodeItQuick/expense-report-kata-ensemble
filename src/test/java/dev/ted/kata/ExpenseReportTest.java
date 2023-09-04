@@ -22,7 +22,7 @@ public class ExpenseReportTest {
     @Test
     public void emptyExpenseReportShowsEmptyReceipt() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         expenseReport.printReport(Collections.emptyList());
 
@@ -37,7 +37,7 @@ public class ExpenseReportTest {
     @Test
     public void oneBreakfastExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense();
         expense.amount = 10;
@@ -56,7 +56,7 @@ public class ExpenseReportTest {
     @Test
     public void oneDinnerExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense();
         expense.amount = 10;
@@ -75,7 +75,7 @@ public class ExpenseReportTest {
     @Test
     public void oneCarRentalExpenseReportShowsMealExpense() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense();
         expense.amount = 10;
@@ -94,7 +94,7 @@ public class ExpenseReportTest {
     @Test
     public void oneDinnerExpenseOverMaximumReportShowsMealExpenseAndMarker() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense();
         expense.amount = 5010;
@@ -113,7 +113,7 @@ public class ExpenseReportTest {
     @Test
     public void oneBreakfastExpenseOverMaximumReportShowsMealExpenseAndMarker() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         Expense expense = new Expense();
         expense.amount = 1010;
@@ -132,7 +132,7 @@ public class ExpenseReportTest {
     @Test
     public void multipleMealsReportShowsAllExpenses() {
         TestableExpenseReport expenseReport = new TestableExpenseReport(
-                () -> LocalDate.parse("2023-04-05"), new ExpenseDisplayLayer());
+                () -> LocalDate.parse("2023-04-05"));
 
         Expense firstExpense = new Expense();
         firstExpense.amount = 500;
@@ -159,25 +159,25 @@ public class ExpenseReportTest {
 
     @Test
     public void expenseDisplayLayerCanPrintNoExpenses() {
-        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer();
+        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"));
+        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer(expenseReport);
         List<DisplayExpense> expenses = new ArrayList<>();
 
-        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"), expenseDisplayLayer);
-        expenseDisplayLayer.printIndividualExpense(expenseReport, expenses);
+        expenseDisplayLayer.printIndividualExpense(expenses);
 
         assertThat(expenseReport.report()).hasSize(0);
     }
     @Test
     public void expenseDisplayLayerCanPrintMultipleExpenses() {
-        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer();
+        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"));
+        ExpenseDisplayLayer expenseDisplayLayer = new ExpenseDisplayLayer(expenseReport);
         DisplayExpense displayExpense = new DisplayExpense();
         displayExpense.isOverExpensed = true;
         displayExpense.amount = 10;
         displayExpense.type = "Breakfast";
         List<DisplayExpense> expenses = List.of(displayExpense);
-        TestableExpenseReport expenseReport = new TestableExpenseReport(() -> LocalDate.parse("2023-04-05"), expenseDisplayLayer);
 
-        expenseDisplayLayer.printIndividualExpense(expenseReport, expenses);
+        expenseDisplayLayer.printIndividualExpense(expenses);
 
         assertThat(expenseReport.report()).containsExactly("Breakfast	10	X");
     }

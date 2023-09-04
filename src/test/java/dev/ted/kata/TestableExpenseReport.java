@@ -6,8 +6,8 @@ import java.util.List;
 class TestableExpenseReport extends ExpenseReport {
     private final List<String> message = new ArrayList<>();
 
-    TestableExpenseReport(ExpenseReport.DateProvider dateProvider, ExpenseDisplayLayer expenseDisplayLayer) {
-        super(dateProvider, expenseDisplayLayer);
+    TestableExpenseReport(ExpenseReport.DateProvider dateProvider) {
+        super(dateProvider);
     }
 
     @Override

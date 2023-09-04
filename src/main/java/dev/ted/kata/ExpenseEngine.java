@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseEngine {
-    static String printIndividualExpense(Expense expense) {
+    static String calculateExpenseString(Expense expense) {
         String expenseName = switch (expense.type) {
             case DINNER -> "Dinner";
             case BREAKFAST -> "Breakfast";
@@ -31,7 +31,7 @@ public class ExpenseEngine {
         List<DisplayExpense> displayExpenses = new ArrayList<>();
         for (Expense expense : expenses) {
             DisplayExpense singleExpense = new DisplayExpense();
-            singleExpense.type = printIndividualExpense(expense);
+            singleExpense.type = calculateExpenseString(expense);
             singleExpense.isOverExpensed = isOverexpensedMeal(expense);
             singleExpense.amount = expense.amount;
             displayExpenses.add(singleExpense);
