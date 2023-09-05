@@ -28,17 +28,11 @@ public class ExpensePrinter {
     public void printExistingReport() {
         ExpenseView expenseView = expensesService.viewExpenses();
 
-        print(expenseView.reportTitle());
+        this.systemOutProvider.ServicePrint(expenseView.reportTitle());
         for(String expenseMessage: expenseView.displayIndividualExpenses()) {
-            print(expenseMessage);
+            this.systemOutProvider.ServicePrint(expenseMessage);
         }
-        print(expenseView.mealExpenseTotal());
-        print(expenseView.totalExpenses());
+        this.systemOutProvider.ServicePrint(expenseView.mealExpenseTotal());
+        this.systemOutProvider.ServicePrint(expenseView.totalExpenses());
     }
-
-    // outside world
-    private void print(String message) {
-        this.systemOutProvider.ServicePrint(message);
-    }
-
 }
