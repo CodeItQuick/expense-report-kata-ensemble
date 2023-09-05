@@ -25,10 +25,15 @@ public class ExpensesService {
 
     public ExpenseView viewExpenses() {
         List<ExpenseDto> allExpenses = this.expenseRepository.AllExpenses();
-        Expenses expenses = new Expenses(allExpenses.stream().map(x -> new Expense(x.mealExpenses(), x.amount())).collect(Collectors.toList()));
+        List<Expense> transformToDomain = allExpenses.stream()
+                .map(x -> new Expense(x.mealExpenses(), x.amount()))
+                .collect(Collectors.toList());
+
+        Expenses expenses = new Expenses(transformToDomain);
         int mealExpenses = expenses.calculateMealExpenses();
         int total = expenses.calculateTotalExpenses();
         List<String> individualExpenses = expenses.calculateIndividualExpenses();
+
         return new ExpenseView(mealExpenses, total, this.dateProvider.currentDate().toString(), individualExpenses);
     }
 }
