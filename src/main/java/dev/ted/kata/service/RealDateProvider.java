@@ -4,7 +4,7 @@ import dev.ted.kata.service.testableProviderInterfaces.DateProvider;
 
 import java.time.LocalDate;
 
-class RealDateProvider implements DateProvider {
+public class RealDateProvider implements DateProvider {
         public RealDateProvider() {
         }
 

@@ -1,6 +1,7 @@
 package dev.ted.kata.adapter;
 
 import dev.ted.kata.service.ExpenseDto;
+import dev.ted.kata.service.RealDateProvider;
 import dev.ted.kata.service.testableProviderInterfaces.DateProvider;
 import dev.ted.kata.service.ExpensesService;
 
@@ -22,7 +23,7 @@ public class ExpensePrinter {
     }
 
     public static ExpensePrinter create() {
-        return new ExpensePrinter(null);
+        return new ExpensePrinter(new RealDateProvider());
     }
 
     public void printExistingReport() {
