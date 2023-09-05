@@ -1,6 +1,5 @@
 package dev.ted.kata.adapter;
 
-import dev.ted.kata.domain.Expense;
 import dev.ted.kata.service.ExpenseDto;
 import dev.ted.kata.service.testableProviderInterfaces.DateProvider;
 import dev.ted.kata.service.ExpensesService;
@@ -12,8 +11,8 @@ public class ExpensePrinter {
     private final SystemOutProvider systemOutProvider;
     private final ExpensesService expensesService;
 
-    protected ExpensePrinter(DateProvider dateProvider, List<ExpenseDto> expenseList) {
-        this.systemOutProvider = new SystemOutProvider();
+    public ExpensePrinter(DateProvider dateProvider, List<ExpenseDto> expenseList, SystemOutProvider systemOutProvider) {
+        this.systemOutProvider = systemOutProvider;
         this.expensesService = new ExpensesService(dateProvider, expenseList);
     }
 
@@ -38,7 +37,7 @@ public class ExpensePrinter {
     }
 
     // outside world
-    protected void print(String message) {
+    private void print(String message) {
         this.systemOutProvider.ServicePrint(message);
     }
 
