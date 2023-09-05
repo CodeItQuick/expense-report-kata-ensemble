@@ -13,8 +13,7 @@ public class ExpensesService {
     private DateProvider dateProvider;
 
     public ExpensesService(DateProvider dateProvider, List<ExpenseDto> expenseList) {
-        this.dateProvider = dateProvider;
-        this.expenseRepository = new ExistingExpensesRepository();
+        this(dateProvider);
         this.expenseRepository.AddExpenses(expenseList);
     }
 
