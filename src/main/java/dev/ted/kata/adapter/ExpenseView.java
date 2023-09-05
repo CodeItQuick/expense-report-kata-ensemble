@@ -18,12 +18,12 @@ public class ExpenseView {
     }
 
     List<String> displayIndividualExpenses() {
-        List<String> messages = new ArrayList<>();
-        for (String individualExpense : individualExpenses) {
+        List<String> individualExpenses = new ArrayList<>();
+        for (String individualExpense : this.individualExpenses) {
             String message = individualExpense;
-            messages.add(message);
+            individualExpenses.add(message);
         }
-        return messages;
+        return individualExpenses;
     }
 
     public String reportTitle() {
