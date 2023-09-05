@@ -1,10 +1,9 @@
 package dev.ted.kata.adapter;
 
 import dev.ted.kata.domain.Expense;
-import dev.ted.kata.service.DateProvider;
+import dev.ted.kata.service.ExpenseDto;
+import dev.ted.kata.service.testableProviderInterfaces.DateProvider;
 import dev.ted.kata.service.ExpensesService;
-import dev.ted.kata.service.RealDateProvider;
-import dev.ted.kata.service.SystemOutProvider;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class ExpensePrinter {
     private final SystemOutProvider systemOutProvider;
     private final ExpensesService expensesService;
 
-    protected ExpensePrinter(DateProvider dateProvider, List<Expense> expenseList) {
+    protected ExpensePrinter(DateProvider dateProvider, List<ExpenseDto> expenseList) {
         this.systemOutProvider = new SystemOutProvider();
         this.expensesService = new ExpensesService(dateProvider, expenseList);
     }
@@ -24,7 +23,7 @@ public class ExpensePrinter {
     }
 
     public static ExpensePrinter create() {
-        return new ExpensePrinter(new RealDateProvider());
+        return new ExpensePrinter(null);
     }
 
     public void printExistingReport() {

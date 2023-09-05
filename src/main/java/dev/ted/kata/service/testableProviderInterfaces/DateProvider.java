@@ -1,4 +1,4 @@
-package dev.ted.kata.service;
+package dev.ted.kata.service.testableProviderInterfaces;
 
 import java.time.LocalDate;
 

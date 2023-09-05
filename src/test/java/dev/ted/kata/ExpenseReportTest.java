@@ -3,6 +3,7 @@ package dev.ted.kata;
 import dev.ted.kata.adapter.ExpensePrinter;
 import dev.ted.kata.domain.Expense;
 import dev.ted.kata.domain.ExpenseType;
+import dev.ted.kata.service.ExpenseDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class ExpenseReportTest {
     @Test
     public void oneBreakfastExpenseReportShowsMealExpense() {
 
-        Expense expense = new Expense(ExpenseType.BREAKFAST, 10);
+        ExpenseDto expense = new ExpenseDto(ExpenseType.BREAKFAST, 10);
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
@@ -56,7 +57,7 @@ public class ExpenseReportTest {
     @Test
     public void oneDinnerExpenseReportShowsMealExpense() {
 
-        Expense expense = new Expense(ExpenseType.DINNER, 10);
+        ExpenseDto expense = new ExpenseDto(ExpenseType.DINNER, 10);
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
@@ -72,7 +73,7 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneCarRentalExpenseReportShowsMealExpense() {
-        Expense expense = new Expense(ExpenseType.CAR_RENTAL, 10);
+        ExpenseDto expense = new ExpenseDto(ExpenseType.CAR_RENTAL, 10);
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
@@ -88,7 +89,7 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneDinnerExpenseOverMaximumReportShowsMealExpenseAndMarker() {
-        Expense expense = new Expense(ExpenseType.DINNER, 5010);
+        ExpenseDto expense = new ExpenseDto(ExpenseType.DINNER, 5010);
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
@@ -104,7 +105,7 @@ public class ExpenseReportTest {
     }
     @Test
     public void oneBreakfastExpenseOverMaximumReportShowsMealExpenseAndMarker() {
-        Expense expense = new Expense(ExpenseType.BREAKFAST, 1010);
+        ExpenseDto expense = new ExpenseDto(ExpenseType.BREAKFAST, 1010);
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"), List.of(expense));
 
@@ -120,9 +121,9 @@ public class ExpenseReportTest {
     }
     @Test
     public void multipleMealsReportShowsAllExpenses() {
-        Expense firstExpense = new Expense(ExpenseType.BREAKFAST, 500);
-        Expense secondExpense = new Expense(ExpenseType.DINNER, 5010);
-        Expense thirdExpense = new Expense(ExpenseType.CAR_RENTAL, 1010);
+        ExpenseDto firstExpense = new ExpenseDto(ExpenseType.BREAKFAST, 500);
+        ExpenseDto secondExpense = new ExpenseDto(ExpenseType.DINNER, 5010);
+        ExpenseDto thirdExpense = new ExpenseDto(ExpenseType.CAR_RENTAL, 1010);
         TestableExpenseReport expenseReport = new TestableExpenseReport(
                 () -> LocalDate.parse("2023-04-05"), List.of(firstExpense, secondExpense, thirdExpense));
 

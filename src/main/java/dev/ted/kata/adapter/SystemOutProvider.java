@@ -1,4 +1,4 @@
-package dev.ted.kata.service;
+package dev.ted.kata.adapter;
 
 public class SystemOutProvider {
     public void ServicePrint(String message) {
