@@ -4,17 +4,17 @@ import java.util.List;
 
 class ExistingExpensesRepository {
 
-    private ExpensesDatabase existingExpensesProvider;
+    private ExpensesDatabase expensesDatabase;
 
     public ExistingExpensesRepository() {
-        this.existingExpensesProvider = new ExpensesDatabase();
+        this.expensesDatabase = new ExpensesDatabase();
     }
 
     public List<ExpenseDto> AllExpenses() {
-        return existingExpensesProvider.expenses;
+        return expensesDatabase.expenses;
     }
 
     public void AddExpenses(List<ExpenseDto> expenseList) {
-        this.existingExpensesProvider.expenses = expenseList;
+        this.expensesDatabase.expenses = expenseList;
     }
 }
