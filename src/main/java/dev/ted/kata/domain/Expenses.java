@@ -13,7 +13,7 @@ public class Expenses {
     public List<String> calculateIndividualExpenses() {
         List<String> displayExpenses = new ArrayList<>();
         for (Expense expense : this.expenses) {
-            String label = expense.expenseType() + "\t" + expense.amount() + "\t" + expense.isOverexpensedMeal();
+            String label = expense.expenseType() + "\t" + expense.amount() + "\t" + expense.isOverExpensedMeal();
             displayExpenses.add(label);
         }
         return displayExpenses;

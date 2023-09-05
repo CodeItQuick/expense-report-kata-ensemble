@@ -16,7 +16,7 @@ public class Expense {
        return 0;
    }
 
-    public String isOverexpensedMeal() {
+    public String isOverExpensedMeal() {
         boolean dinnerOverExpensed = type == ExpenseType.DINNER && amount > 5000;
         boolean breakfastOverExpensed = type == ExpenseType.BREAKFAST && amount > 1000;
         return dinnerOverExpensed || breakfastOverExpensed ? "X" : " ";
