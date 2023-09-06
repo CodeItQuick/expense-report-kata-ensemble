@@ -14,7 +14,7 @@ class ExistingExpensesRepository {
         return expensesDatabase.expenses;
     }
 
-    public void AddExpenses(List<ExpenseDto> expenseList) {
+    public void ReplaceAllExpenses(List<ExpenseDto> expenseList) {
         this.expensesDatabase.expenses = expenseList;
     }
 }

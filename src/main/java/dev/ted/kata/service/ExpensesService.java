@@ -14,7 +14,7 @@ public class ExpensesService {
 
     public ExpensesService(DateProvider dateProvider, List<ExpenseDto> expenseList) {
         this(dateProvider);
-        this.expenseRepository.AddExpenses(expenseList);
+        this.expenseRepository.ReplaceAllExpenses(expenseList);
     }
 
     public ExpensesService(DateProvider dateProvider) {
