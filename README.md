@@ -1,3 +1,10 @@
+# CodeItQuick Contribution to this Kata
+
+I redid this kata mostly to explore how hexagonal architecture _should_ look. For the most part the solution
+is much too verbose for what the code justifies, but it did help solidify where each part of the project
+belongs in a hex-arch codebase.
+
+
 # Expense Report Kata
 
 This is the Java-only version of the kata from https://github.com/christianhujer/expensereport.
